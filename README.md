@@ -34,3 +34,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+//自定义域名，可在public目录下创建 CNAME 文件
+```text
+yourdomain.com
+```
+部署到gitpage静态网站注意事项：
+❌ 不能使用：API Routes、服务端组件、getServerSideProps
+✅ 可以使用：静态生成、客户端组件
+如果需要动态数据，使用客户端数据获取
+
+## 保留文件名
+error, global-error, error, loading, not-found,
+
+## api route
+curl -X PUT http://localhost:3002/api/hello
+curl http://localhost:3002/api/hello
