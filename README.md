@@ -44,9 +44,22 @@ yourdomain.com
 ✅ 可以使用：静态生成、客户端组件
 如果需要动态数据，使用客户端数据获取
 
+// 这些在静态导出中无法工作：
+// - 服务端组件 (async 组件)
+// - API Routes (/app/api/ 目录)
+// - getServerSideProps
+// - 动态服务端渲染
+
 ## 保留文件名
 error, global-error, error, loading, not-found,
 
 ## api route
 curl -X PUT http://localhost:3002/api/hello
 curl http://localhost:3002/api/hello
+
+# 使用 serve 在本地模拟 GitHub Pages 环境
+npm install -g serve
+
+# 在 out 目录中启动服务器，模拟子路径
+cd out
+serve -s . -l 3000
