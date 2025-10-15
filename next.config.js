@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     unoptimized: true, // GitHub Pages 不支持 Next.js 图片优化
   },
+  basePath: '/react-next-app', // 替换为你的仓库名称
   // 如果你的仓库不是 username.github.io，需要设置 basePath
   // basePath: process.env.NODE_ENV === 'production' ? '/your-repo-name' : '',
   // assetPrefix: process.env.NODE_ENV === 'production' ? '/your-repo-name/' : '',
