@@ -1,3 +1,5 @@
+@import './fonts.css'; /* 导入字体样式 */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
