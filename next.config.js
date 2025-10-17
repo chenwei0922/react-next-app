@@ -12,6 +12,10 @@ const nextConfig = {
   // 确保所有资源路径正确
   experimental: {
     urlImports: ['https://chenwei0922.github.io'],
+    turbo: {
+      // 这里可以配置 ignorePatterns
+      ignorePatterns: ['public/flags/**', 'public/geo/**', 'public/images/**', 'public/fonts/**', 'scripts/**']
+    }
   },
   images: {
     // domains: ['example.com'], // 允许的外部域名
