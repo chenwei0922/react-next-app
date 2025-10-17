@@ -1,7 +1,8 @@
 // "use client";
 // import dynamic from "next/dynamic";
 
-import { cn } from "@/common/utils";
+import { cn, getAssetUrl } from "@/common/utils";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 // import BarChart from "./component/bar";
@@ -30,9 +31,11 @@ export default function Home() {
       className={cn(
         "w-screen min-h-screen",
         "bg-repeat bg-cover bg-center",
-        "bg-[url(/images/bg.jpg)]"
+        // "bg-[url(/images/bg.jpg)]"
       )}
+      style={{backgroundImage: `url(${getAssetUrl("/images/bg.jpg")})`}}
     >
+      {/* <Image src={getAssetUrl("/images/bg.jpg")} alt="" width={100} height={50} priority /> */}
       <div
         className={cn(
           "h-[3.25rem] relative flex flex-row items-center justify-center",
