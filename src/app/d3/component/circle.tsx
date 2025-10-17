@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import * as d3 from "d3";
 import { BarDatum, COLOR_SCHEMES, DEFAULT_COLOR_SCHEME } from "./types";
@@ -70,6 +72,14 @@ const CicleChart = () => {
 const LeaveItem1 = ({ node, index }: LeaveItemProps & { index: number }) => {
   const { data, depth, x, y, r, height, value } = node;
   const color = COLOR_SCHEMES[index % COLOR_SCHEMES.length];
+
+  const [animationDelay, setAnimationDelay] = useState('0s');
+
+  useEffect(() => {
+    // 只在客户端执行
+    setAnimationDelay(`${Math.random()}s`);
+  }, []);
+
   return (
     <div
       key={data?.name || index}
@@ -83,7 +93,7 @@ const LeaveItem1 = ({ node, index }: LeaveItemProps & { index: number }) => {
         height: r * 2,
         left: x - r,
         top: y - r,
-        animationDelay: `${Math.random()}s`,
+        animationDelay: animationDelay,
         backgroundColor: color.color,
         backgroundImage: color.radialGradient,
       }}

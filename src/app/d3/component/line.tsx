@@ -1,9 +1,11 @@
+'use client';
+
 import React, { useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import { LineDatum } from "./types";
 import { ChartFrame } from "./common";
 
-const mockLineData = [
+const mockLineData:LineDatum[] = [
   { date: new Date(2023, 0, 1), value: 100 },
   { date: new Date(2023, 1, 1), value: 130 },
   { date: new Date(2023, 2, 1), value: 160 },
@@ -35,29 +37,32 @@ const LineChart = () => {
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
     // 设置比例尺
+    const xExtent = d3.extent(data, (d) => d.date);
+    if (!xExtent[0] || !xExtent[1]) return;
     const xScale = d3
       .scaleTime()
-      .domain(d3.extent(data, (d) => d.date))
+      .domain(xExtent as [Date, Date])
       .range([0, innerWidth]);
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => d.value)])
+      .domain([0, d3.max(data, (d) => d.value)!])
       .nice()
       .range([innerHeight, 0]);
 
     // 创建折线生成器
     const line = d3
-      .line()
-      .x((d) => xScale(d.date))
-      .y((d) => yScale(d.value))
+      .line<LineDatum>()
+      .x((d: LineDatum) => xScale(d.date))
+      .y((d: LineDatum) => yScale(d.value))
       .curve(d3.curveMonotoneX);
 
     // 添加坐标轴
+    const formatTime = d3.timeFormat("%b %Y");
     const xAxis = d3
       .axisBottom(xScale)
       .ticks(5)
-      .tickFormat(d3.timeFormat("%b %Y"));
+      .tickFormat((d) => formatTime(d as Date));
 
     const yAxis = d3.axisLeft(yScale);
 
