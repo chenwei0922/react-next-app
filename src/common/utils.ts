@@ -10,3 +10,6 @@ export const getAssetUrl = (path: string) => {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''; // 或者你的 assetPrefix
   return `${basePath}${path}`;
 };
+
+
+export const isServer = typeof window === 'undefined';
