@@ -42,8 +42,9 @@ export default function Home() {
         className={cn(
           "h-[3.25rem] relative flex flex-row items-center justify-center",
           "bg-no-repeat bg-cover bg-center",
-          "bg-[url(/images/head_bg.png)]"
+          // "bg-[url(/images/head_bg.png)]"
         )}
+        style={{ backgroundImage: `url(${getAssetUrl("/images/head_bg.png")})`}}
       >
         <h1 className="text-xl">可视化展板-D3</h1>
         <span className="text-xs absolute right-10 font-digit">

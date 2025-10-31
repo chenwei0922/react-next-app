@@ -1,6 +1,7 @@
 @font-face {
   font-family: 'DS-DIGIT';
-  src: url(/fonts/DS-DIGIT.TTF) format('truetype');
+  /* src: url(/fonts/DS-DIGIT.TTF) format('truetype'); */
+  src: url(${process.env.NEXT_PUBLIC_BASE_PATH}/fonts/DS-DIGIT.TTF) format('truetype');
   font-weight: normal;
   font-style: normal;
 }
