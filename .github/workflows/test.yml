@@ -13,6 +13,9 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm install
       - run: npm run build
-      - run: npm run start &
-      - run: npx wait-on http://localhost:3000
-      - run: npm run e2e:headless
+      - run: npm run test:e2e:prod
+      # # &关键符号，表示后台运行这个命令，不会阻塞进程，可继续执行后续命令
+      # - run: npm run start &
+      # # 等待某个资源变(如URL、端口、文件)为可用状态
+      # - run: npx wait-on http://localhost:3000
+      # - run: npm run cypress:run
