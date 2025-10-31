@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '../styles/globals.css'
-import Head from 'next/head'
+import FontLoader from '@/components/FontLoader'
 // import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -16,23 +16,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-  const fontPath = `${basePath}/fonts/DS-DIGIT.TTF`;
-
   return (
     <html lang="en">
-      <Head>
-        <style>
-          {`
-            @font-face {
-              font-family: 'DS-DIGIT';
-              src: url('${fontPath}') format('truetype');
-              font-weight: normal;
-              font-style: normal;
-            }
-          `}
-        </style>
-      </Head>
+      <head>
+        <FontLoader />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )
