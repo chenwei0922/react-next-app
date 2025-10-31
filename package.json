@@ -7,6 +7,7 @@
     "upgrade:next": "bash ./sh/upgrade-next.sh",
     "dev": "env-cmd -f .env.dev next dev",
     "build": "env-cmd -f .env.prod next build",
+    "build:dev": "env-cmd -f .env.dev next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",

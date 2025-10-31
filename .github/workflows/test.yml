@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: npm install
-      - run: npm run build
+      - run: npm run build:dev
       # serve 会自动在端口 3000 启动一个静态服务器来服务 out 目录。
       - run: npx serve@latest out &
       - run: npx wait-on http://localhost:3000
