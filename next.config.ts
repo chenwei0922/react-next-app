@@ -1,9 +1,42 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   output: 'export', // 关键：启用静态导出
   trailingSlash: true, // 确保 URL 以斜杠结尾
+  reactStrictMode: false,
+  generateEtags: false,
+  poweredByHeader: false,
+  async headers() {
+    const cspAllowDmains = [
+      "'self'",
+    ]
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: `frame-ancestors ${cspAllowDmains.join(' ')};`
+          }
+        ]
+      }
+    ]
+  },
   images: {
     unoptimized: true, // GitHub Pages 不支持 Next.js 图片优化
+    // domains: ['resources.playvrs.net', 'resources.xterio.net', 'resources.xter.io'],
+    // // 优化设备断点
+    // deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920, 2560],
+    // // 优化图片尺寸
+    // imageSizes: [32, 64, 96, 128, 256, 384, 512],
+  
+    // // 其他优化配置
+    // formats: ['image/webp', 'image/avif'],
+    // minimumCacheTTL: 60 * 60 * 6, // 6小时
+    // dangerouslyAllowSVG: true,
+    // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // deviceSizes: [700, 800, 900, 1100, 1200, 2000, 2100],
+    // imageSizes: [100, 200, 300, 400, 500, 600]
     // domains: ['example.com'], // 允许的外部域名
     // formats: ['image/webp', 'image/avif'], // 支持的格式
     // deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
@@ -21,20 +54,19 @@ const nextConfig = {
     //   }
     // ]
   },
-  experimental: {
-    turbo: {
-      // 这里可以配置 ignorePatterns
-      // ignorePatterns: ['public/flags/**', 'public/geo/**', 'public/images/**', 'public/fonts/**', 'scripts/**']
-    }
-  },
+  compress: true,
   // basePath: '/react-next-app', // 替换为你的仓库名称
   // 如果你的仓库不是 username.github.io，需要设置 basePath
   basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
   assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || '',
   // basePath: process.env.NODE_ENV === 'production' ? '/out' : '',
   // assetPrefix: process.env.NODE_ENV === 'production' ? '/out' : '',
-  // 确保所有资源路径正确
-  
+  // 配置代理
+  // async rewrites() {
+  //   // Example:
+  //   return [{ source: '/xgc/:path*', destination: 'https://api.xter.io/xgc/:path*' }];
+  // },
+
   // 自定义 webpack 配置（如果需要）
   // webpack: (config) => {
   //   config.module.rules.push({
@@ -56,4 +88,4 @@ const nextConfig = {
   // },
 }
 
-module.exports = nextConfig
+export default nextConfig;

@@ -1,10 +1,13 @@
-import type { Config } from 'tailwindcss'
 
-const config: Config = {
+const config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}', // 如果使用 src 目录
   ],
   theme: {
     extend: {
@@ -21,6 +24,11 @@ const config: Config = {
       },
       fontFamily: {
         digit: ['DS-DIGIT']
+      },
+      colors: {
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        normal: 'red',
       },
       keyframes: {
         wave: {
@@ -46,4 +54,4 @@ const config: Config = {
   },
   plugins: [],
 }
-export default config
+module.exports = config

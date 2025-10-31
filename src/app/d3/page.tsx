@@ -1,10 +1,10 @@
-// "use client";
+"use client";
 // import dynamic from "next/dynamic";
 
 import { cn, getAssetUrl } from "@/common/utils";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 // import BarChart from "./component/bar";
 // import LineChart from "./component/line";
 // import CicleChart from "./component/circle";
@@ -23,9 +23,11 @@ const CicleChart = dynamic(() => import("./component/circle"), {
 });
 
 export default function Home() {
-  const curenttime = useMemo(() => {
-    return new Date().toLocaleString();
-  }, []);
+  const [currentTime, setTime] = useState<string>()
+  useEffect(() => {
+    setTime(new Date().toLocaleString())
+  }, [])
+
   return (
     <section
       className={cn(
@@ -33,7 +35,7 @@ export default function Home() {
         "bg-repeat bg-cover bg-center",
         // "bg-[url(/images/bg.jpg)]"
       )}
-      style={{backgroundImage: `url(${getAssetUrl("/images/bg.jpg")})`}}
+      style={{ backgroundImage: `url(${getAssetUrl("/images/bg.jpg")})`}}
     >
       {/* <Image src={getAssetUrl("/images/bg.jpg")} alt="" width={100} height={50} priority /> */}
       <div
@@ -44,8 +46,8 @@ export default function Home() {
         )}
       >
         <h1 className="text-xl">可视化展板-D3</h1>
-        <span className="text-xs absolute right-10">
-          当前时间：{curenttime}
+        <span className="text-xs absolute right-10 font-digit">
+          当前时间：{currentTime}
         </span>
       </div>
       <div className="flex flex-row space-x-1 px-2">

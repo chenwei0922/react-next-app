@@ -1,8 +1,12 @@
-@import './fonts.css'; /* 导入字体样式 */
+/* tailwind@4 */
+@config "../../tailwind.config.js";
+@import "tailwindcss";
 
-@tailwind base;
+@import './fonts.css'; /* 导入字体样式 */
+/* tailwind@3 */
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 :root {
   --foreground-rgb: 0, 0, 0;

@@ -1,4 +1,4 @@
 
 export default function Home() {
-  return <div>about page</div>
+  return <h1>About page</h1>
 }

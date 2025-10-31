@@ -1,0 +1,33 @@
+/**
+ * For a detailed explanation regarding each configuration property, visit:
+ * https://jestjs.io/docs/configuration
+ */
+
+import type {Config} from 'jest';
+import nextJest from 'next/jest.js';
+
+// export default config;
+const createJestConfig = nextJest({
+  dir: './', // 指定 Next.js 应用目录，用于加载 next.config.js 和 .env 文件
+})
+const config:Config = {
+  coverageProvider: 'v8',
+  testEnvironment: 'jsdom',
+  // Add more setup options before each test is run
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  // 可选：设置模块路径别名映射 (类似 Webpack 中的 alias)
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  // 添加这些配置来处理 ES 模块
+  // extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  // transform: {
+  //   '^.+\\.(ts|tsx)$': 'ts-jest',
+  // },
+  // transformIgnorePatterns: [
+  //   'node_modules/(?!(next|@next)/)',
+  // ],
+  // 可选：忽略 Cypress 测试目录
+  // testPathIgnorePatterns: ['<rootDir>/cypress/'],
+}
+export default createJestConfig(config);
