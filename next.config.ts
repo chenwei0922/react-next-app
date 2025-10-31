@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  //next start是一个nodejs服务器，静态导出后，你就不再需要nodejs服务器，只需要一个静态文件服务器
   output: 'export', // 关键：启用静态导出
   trailingSlash: true, // 确保 URL 以斜杠结尾
   reactStrictMode: false,
