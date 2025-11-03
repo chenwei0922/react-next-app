@@ -103,3 +103,17 @@ serve -s . -l 3000
 
 ### cypress
 > cypress，端到端测试(E2E)，测试完整用户流程，如页面导航，跨页面交互
+
+## 埋点,神策
+```html
+<!-- G-ZL1YVF18VG -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZL1YVF18VG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZL1YVF18VG');
+</script>
+```

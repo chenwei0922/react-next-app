@@ -21,6 +21,7 @@
     "test:e2e:prod": "start-server-and-test start http://localhost:3000 cypress:run"
   },
   "dependencies": {
+    "@next/third-parties": "^16.0.1",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.4.0",
     "ahooks": "^3.9.6",
