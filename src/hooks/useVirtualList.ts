@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 
 interface UseVirtualListProps<T> {
   items: T[]
@@ -8,95 +8,76 @@ interface UseVirtualListProps<T> {
 }
 
 export const useVirtualList = <T extends object>(props: UseVirtualListProps<T>) => {
-  const { itemHeight, items, overscan = 5 } = props
-  const containerRef = useRef<HTMLDivElement|null>(null);
+  const { itemHeight, items, overscan = 5, containerTarget } = props
+
+  const internalRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = containerTarget ?
+    (containerTarget as RefObject<HTMLDivElement | null>) :
+    internalRef;
 
   const [visibleItems, setVisibleItems] = useState<{ data: T; originalIndex: number; offsetTop: number; }[]>([])
-  const [size, setState] = useState<{ width: number; height: number }>()
   const scrollTriggerByScrollToFuncRef = useRef<boolean>(false)
+  const [scrollTop, setScrollTop] = useState<number|null>(null)
 
-  const calcChange = useCallback(() => {
-    const container = containerRef?.current
-    if (!container) return
+  const calculateVisibleItems = useCallback((container: HTMLDivElement) => {
     const { clientHeight: containerHeight, scrollTop } = container
-
     const offset = Math.floor(scrollTop / itemHeight)
     const visibleCount = Math.ceil(containerHeight / itemHeight)
 
     const startIndex = Math.max(0, offset - overscan);
     const endIndex = Math.min(items.length, offset + visibleCount + overscan)
 
-    // console.log('////vvv', startIndex, '->', endIndex, '->', visibleCount)
-
-    const list = items.slice(startIndex, endIndex).map((item, index) => {
+    setVisibleItems(items.slice(startIndex, endIndex).map((item, index) => {
       return {
         data: item,
         originalIndex: startIndex + index,
         offsetTop: (startIndex + index) * itemHeight
       }
-    })
-    setVisibleItems(list)
-
-  }, [containerRef, itemHeight, items, overscan])
+    }))
+  }, [itemHeight, items, overscan])
 
   const scrollTo = useCallback((index: number) => {
-    const container = containerRef?.current
+    setScrollTop(index * itemHeight)
+  }, [itemHeight])
+
+  useEffect(() => {
+    if(scrollTop === null) return
+    const container = containerRef.current
     if (!container) return
+    
     scrollTriggerByScrollToFuncRef.current = true
+    container.scrollTop = scrollTop
+    // container.scrollTo({ top: scrollTop, behavior: 'smooth' })
+    calculateVisibleItems(container)
+    setScrollTop(null)
+  }, [calculateVisibleItems, containerRef, scrollTop])
 
-    // 创建新的滚动位置，不修改原始容器
-    const newScrollTop = index * itemHeight;
-
-    requestAnimationFrame(() => {
-      container.scrollTop = newScrollTop
-    });
-
-    calcChange()
-  }, [calcChange, containerRef, itemHeight])
-
-  useLayoutEffect(() => {
-    const el = containerRef?.current
-    if (!el) {
-      return
-    }
-    const resizeObserver = new ResizeObserver((entries) => {
-      entries.forEach((entry) => {
-        const { clientWidth, clientHeight } = entry.target;
-        setState({ width: clientWidth, height: clientHeight });
-      });
-    });
-    resizeObserver.observe(el);
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [containerRef])
-
+  // 监听滚动和尺寸变化
   useEffect(() => {
-    if (!size?.width || !size?.height || !items?.length) {
-      return
-    }
-    requestAnimationFrame(() => {
-      calcChange()
-    })
-  }, [calcChange, items?.length, size?.height, size?.width])
+    const container = containerRef.current
+    if (!container) return
 
+    calculateVisibleItems(container)
 
-  //滚动事件监听
-  useEffect(() => {
-    const node = containerRef?.current
-    if (!node) return
+    //监听滚动事件
     const handleScroll = () => {
       if (scrollTriggerByScrollToFuncRef.current) {
         scrollTriggerByScrollToFuncRef.current = false
         return
       }
-      calcChange()
+      calculateVisibleItems(container)
     }
-    node.addEventListener('scroll', handleScroll, { passive: true })
+    container.addEventListener('scroll', handleScroll, { passive: true })
+
+    // 监听容器尺寸变化
+    const resizeObserver = new ResizeObserver(() => calculateVisibleItems(container))
+    resizeObserver.observe(container)
+
     return () => {
-      node.removeEventListener('scroll', handleScroll)
+      container.removeEventListener('scroll', handleScroll)
+      resizeObserver.disconnect()
     }
-  }, [calcChange, containerRef])
+  }, [calculateVisibleItems, containerRef])
 
   return {
     containerRef,
