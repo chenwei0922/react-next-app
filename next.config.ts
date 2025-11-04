@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   //next start是一个nodejs服务器，静态导出后，你就不再需要nodejs服务器，只需要一个静态文件服务器
-  output: 'export', // 关键：启用静态导出
+  // output: 'export', // 关键：启用静态导出
   trailingSlash: true, // 确保 URL 以斜杠结尾
   reactStrictMode: false,
   generateEtags: false,
@@ -24,7 +24,7 @@ const nextConfig: NextConfig = {
     ]
   },
   images: {
-    unoptimized: true, // GitHub Pages 不支持 Next.js 图片优化
+    // unoptimized: true, // GitHub Pages 不支持 Next.js 图片优化
     // domains: ['resources.playvrs.net', 'resources.xterio.net', 'resources.xter.io'],
     // // 优化设备断点
     // deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920, 2560],
