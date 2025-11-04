@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
-
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const nextConfig: NextConfig = {
   //next start是一个nodejs服务器，静态导出后，你就不再需要nodejs服务器，只需要一个静态文件服务器
   // output: 'export', // 关键：启用静态导出
+  output: basePath ? 'export' : 'standalone',
   trailingSlash: true, // 确保 URL 以斜杠结尾
   reactStrictMode: false,
   generateEtags: false,
@@ -24,15 +25,15 @@ const nextConfig: NextConfig = {
     ]
   },
   images: {
-    // unoptimized: true, // GitHub Pages 不支持 Next.js 图片优化
-    // domains: ['resources.playvrs.net', 'resources.xterio.net', 'resources.xter.io'],
-    // // 优化设备断点
-    // deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920, 2560],
-    // // 优化图片尺寸
-    // imageSizes: [32, 64, 96, 128, 256, 384, 512],
+    unoptimized: basePath ? true : false, // GitHub Pages 不支持 Next.js 图片优化
+    domains: ['resources.playvrs.net', 'resources.xterio.net', 'resources.xter.io'],
+    // 优化设备断点
+    deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920, 2560],
+    // 优化图片尺寸
+    imageSizes: [32, 64, 96, 128, 256, 384, 512],
   
     // // 其他优化配置
-    // formats: ['image/webp', 'image/avif'],
+    formats: ['image/webp', 'image/avif'],
     // minimumCacheTTL: 60 * 60 * 6, // 6小时
     // dangerouslyAllowSVG: true,
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
@@ -58,8 +59,8 @@ const nextConfig: NextConfig = {
   compress: true,
   // basePath: '/react-next-app', // 替换为你的仓库名称
   // 如果你的仓库不是 username.github.io，需要设置 basePath
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
-  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || '',
+  basePath: basePath,
+  assetPrefix: basePath,
   // basePath: process.env.NODE_ENV === 'production' ? '/out' : '',
   // assetPrefix: process.env.NODE_ENV === 'production' ? '/out' : '',
   // 配置代理
