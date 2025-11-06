@@ -8,6 +8,7 @@ interface FetcherConfig {
   data?: unknown
   timeout?: number
   Authorization?: string
+  isManualBody?: boolean  //是否手动处理响应体
 }
 
 interface IResponse<T> {
@@ -18,7 +19,21 @@ interface IResponse<T> {
 
 //请求成功处理
 const resolveResp = async <T>(resp: Response):Promise<T> => {
-  const res: IResponse<T> = await resp.json() //{err_code,data}
+  let isXter = false
+  if(process.env.NEXT_PUBLIC_XTER_API){
+    isXter = resp.url.startsWith(process.env.NEXT_PUBLIC_XTER_API)
+  }
+  if(!isXter){
+    const res: T = await resp.json()
+    if([401, 429, 404, 400, 403, 500].includes(resp.status)){
+      console.error('status', resp.status, 'statusText', resp.statusText)
+      return Promise.reject({status:resp.status, message: resp.statusText, ...res})
+    }
+   return res
+  }
+  
+  //xter响应的结构
+  const res: IResponse<T> = await resp.json() //xter:{err_code,data}
   if(res?.err_code !== 0){
     if (resp.status === 401 || resp.status === 403) {
       console.log('Your session has expired, please sign in again.')
@@ -56,13 +71,13 @@ const fullUrl = (apiPath: string, apiBase?: string): string => {
 
 //基础fetcher实现
 const fetcher = async <T>(config: FetcherConfig):Promise<T> => {
-  const { method, path:initPath, params, headers={}, data, timeout=10000, Authorization } = config;
+  const { method, path:initPath, params, headers={}, data, timeout=10000, Authorization, isManualBody } = config;
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout); // 10秒超时
 
   //合并全局参数和用户传入的参数
   const mergedParams = {
-    season_id: 1,
+    // season_id: 1,
     ...params,
   }
   // 处理 query params, https://api.playvrs.net, https://api.xterio.net, https://api.xter.io
@@ -73,7 +88,9 @@ const fetcher = async <T>(config: FetcherConfig):Promise<T> => {
     path = path.indexOf('?') !== -1 ? `${path}&${queryParam}` : `${path}?${queryParam}`
   }
   // 这里拼接完整的地址，主要在next.config.ts中配置代理，network有两边请求，第一遍308,第二遍200
-  let finalUrl = fullUrl(path, 'https://api.xter.io')
+  // const finalUrl = fullUrl(path, 'https://api.xter.io')
+  const finalUrl = fullUrl(path, process.env.NEXT_PUBLIC_API)
+  // console.log('finalUrl=', finalUrl)
 
   const requestOptions: RequestInit = {
     method,
@@ -87,14 +104,15 @@ const fetcher = async <T>(config: FetcherConfig):Promise<T> => {
 
   if(data){
     // body: PUT 和 application/x-www-form-urlencoded 提交的是表单数据，不能stringify
-    const needStringify = method !== 'PUT' && headers?.['Content-Type'] !== 'application/x-www-form-urlencoded'
+    const needStringify = headers?.['Content-Type'] !== 'application/x-www-form-urlencoded'
     requestOptions.body = needStringify ? JSON.stringify(data) : (data as ReadableStream)
   }
   const req = new Request(finalUrl, requestOptions)
   try{
     const resp = await fetch(req)
     clearTimeout(timeoutId)
-    return method === 'PUT' ? (resp as T) : resolveResp<T>(resp)
+    if(isManualBody) return resp as T
+    return resolveResp<T>(resp)
   }catch(error){
     clearTimeout(timeoutId);
     onFetchError(error, requestOptions)

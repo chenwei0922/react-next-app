@@ -4,6 +4,8 @@ import '../styles/globals.css'
 import FontLoader from '@/components/FontLoader'
 // import './globals.css'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import "@radix-ui/themes/styles.css";
+import { Theme, ThemePanel } from "@radix-ui/themes";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,7 +25,10 @@ export default function RootLayout({
         <FontLoader />
       </head>
       <body className={inter.className}>
+        <Theme appearance={'dark'}>
         {children}
+        {/* <ThemePanel /> */}
+        </Theme>
         <GoogleAnalytics gaId={'G-ZL1YVF18VG'} />
       </body>
     </html>

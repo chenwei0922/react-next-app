@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@next/third-parties": "^16.0.1",
+    "@radix-ui/themes": "^3.2.1",
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.4.0",
     "ahooks": "^3.9.6",
