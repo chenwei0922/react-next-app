@@ -25,7 +25,10 @@ const CicleChart = dynamic(() => import("./component/circle"), {
 export default function Home() {
   const [currentTime, setTime] = useState<string>()
   useEffect(() => {
-    setTime(new Date().toLocaleString())
+    //fix: trigger cascading renders
+    requestAnimationFrame(() => {
+      setTime(new Date().toLocaleString())
+    })
   }, [])
 
   return (
