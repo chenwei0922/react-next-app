@@ -1,11 +1,11 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import jwt from 'jsonwebtoken'
+import User from '../models/User'
 
 function signToken(userId) {
   return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: '30d' });
 }
 
-exports.register = async (ctx) => {
+export const register = async (ctx) => {
   const { email, password, name } = ctx.request.body || {};
   if (!email || !password) {
     ctx.status = 400;
@@ -25,7 +25,7 @@ exports.register = async (ctx) => {
   ctx.body = { _id: user._id, name: user.name, email: user.email, token };
 };
 
-exports.login = async (ctx) => {
+export const login = async (ctx) => {
   const { email, password } = ctx.request.body || {};
   if (!email || !password) {
     ctx.status = 400;

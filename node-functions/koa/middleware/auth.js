@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken'
 
-function requireAuth() {
+export function requireAuth() {
   return async function authMiddleware(ctx, next) {
     const authHeader = ctx.headers.authorization || '';
     if (!authHeader.startsWith('Bearer ')) {
@@ -19,7 +19,5 @@ function requireAuth() {
     }
   };
 }
-
-module.exports = { requireAuth };
 
 

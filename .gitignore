@@ -55,4 +55,5 @@ Thumbs.db
 .edgeone/*
 !.edgeone/project.json
 .tef_dist/*
-  
+node-functions/koa/config/*
+!node-functions/koa/config/db.js

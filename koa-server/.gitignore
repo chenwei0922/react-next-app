@@ -1,4 +1,0 @@
-node_modules
-
-src/config/*
-!src/config/db.js

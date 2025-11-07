@@ -1,6 +1,6 @@
-const User = require('../models/User');
+import User from'../models/User'
 
-exports.getProfile = async (ctx) => {
+export const getProfile = async (ctx) => {
   const user = await User.findById(ctx.state.userId).select('-password');
   if (!user) {
     ctx.status = 404;

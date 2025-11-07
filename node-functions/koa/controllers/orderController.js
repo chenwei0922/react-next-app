@@ -1,7 +1,7 @@
-const Order = require('../models/Order');
-const Product = require('../models/Product');
+import Order from'../models/Order'
+import Product from'../models/Product'
 
-exports.createOrder = async (ctx) => {
+export const createOrder = async (ctx) => {
   const { orderItems = [], shippingAddress, paymentMethod } = ctx.request.body || {};
   if (!orderItems.length) {
     ctx.status = 400;
@@ -48,12 +48,12 @@ exports.createOrder = async (ctx) => {
   ctx.body = created;
 };
 
-exports.getMyOrders = async (ctx) => {
+export const getMyOrders = async (ctx) => {
   const orders = await Order.find({ user: ctx.state.userId }).sort({ createdAt: -1 });
   ctx.body = orders;
 };
 
-exports.getOrderById = async (ctx) => {
+export const getOrderById = async (ctx) => {
   const order = await Order.findById(ctx.params.id).populate('user', 'name email');
   if (!order) {
     ctx.status = 404;

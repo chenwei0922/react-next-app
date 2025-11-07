@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from'mongoose'
 
 const orderItemSchema = new mongoose.Schema({
   product: { type: mongoose.Schema.Types.ObjectId, ref: 'KoaProduct', required: true },
@@ -28,6 +28,6 @@ const orderSchema = new mongoose.Schema({
   deliveredAt: { type: Date }
 }, { timestamps: true });
 
-module.exports = mongoose.model('KoaOrder', orderSchema);
+export default mongoose.model('KoaOrder', orderSchema);
 
 

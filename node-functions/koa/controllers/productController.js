@@ -1,11 +1,11 @@
-const Product = require('../models/Product');
+import Product from'../models/Product'
 
-exports.getProducts = async (ctx) => {
+export const getProducts = async (ctx) => {
   const products = await Product.find({});
   ctx.body = products;
 };
 
-exports.getProductById = async (ctx) => {
+export const getProductById = async (ctx) => {
   const product = await Product.findById(ctx.params.id);
   if (!product) {
     ctx.status = 404;
@@ -15,7 +15,7 @@ exports.getProductById = async (ctx) => {
   ctx.body = product;
 };
 
-exports.createProduct = async (ctx) => {
+export const createProduct = async (ctx) => {
   const { name, description, price, image, category, countInStock } = ctx.request.body || {};
   const product = new Product({ name, description, price, image, category, countInStock });
   const created = await product.save();
@@ -23,7 +23,7 @@ exports.createProduct = async (ctx) => {
   ctx.body = created;
 };
 
-exports.updateProduct = async (ctx) => {
+export const updateProduct = async (ctx) => {
   const { name, description, price, image, category, countInStock } = ctx.request.body || {};
   const product = await Product.findById(ctx.params.id);
   if (!product) {
@@ -41,7 +41,7 @@ exports.updateProduct = async (ctx) => {
   ctx.body = updated;
 };
 
-exports.deleteProduct = async (ctx) => {
+export const deleteProduct = async (ctx) => {
   const product = await Product.findById(ctx.params.id);
   if (!product) {
     ctx.status = 404;
