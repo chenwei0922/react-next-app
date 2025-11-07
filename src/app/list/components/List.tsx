@@ -7,7 +7,7 @@ import { LodeMore } from "./LoadMore";
 
 //自定义hook
 // 虚拟列表
-export const CustomVirtualList1 = ({ results, handleMore, loading, hasMore }: { results: IWork[]; renderMore?: ReactNode; handleMore:()=>void; loading?:boolean; hasMore?:boolean  }) => {
+export const CustomVirtualList = ({ results, handleMore, loading, hasMore }: { results: IWork[]; renderMore?: ReactNode; handleMore:()=>void; loading?:boolean; hasMore?:boolean  }) => {
 
   const {moreRef} = useInfiniteScroll<HTMLDivElement>(handleMore,{
     enabled: hasMore && !loading, // 没有更多数据或加载中时禁用
@@ -42,7 +42,7 @@ export const CustomVirtualList1 = ({ results, handleMore, loading, hasMore }: { 
 };
 
 // 普通分页列表
-export const CustomVirtualList = ({ results, handleMore, loading, hasMore }: { results: IWork[]; renderMore?: ReactNode; handleMore:()=>void; loading?:boolean; hasMore?:boolean  }) => {
+export const CustomVirtualList1 = ({ results, handleMore, loading, hasMore }: { results: IWork[]; renderMore?: ReactNode; handleMore:()=>void; loading?:boolean; hasMore?:boolean  }) => {
 
   const {moreRef} = useInfiniteScroll<HTMLDivElement>(handleMore,{
     enabled: hasMore && !loading, // 没有更多数据或加载中时禁用
