@@ -1,10 +1,13 @@
-// 文件路径 ./node-functions/express/[[default]].js
 import Koa from "koa";
-const app = Koa();
+import Router from "koa-router";
 
-// 添加根路由处理，访问路径 example.com/express/
-app.get("/test", (ctx) => {
-  ctx.body = { message: "Hello from Express on Node Functions!" }
+const app = new Koa();
+
+const router = new Router();
+router.get("/test", (ctx) => {
+  ctx.body = { message: "Koa API is running..." };
 });
+
+app.use(router.routes());
 
 export default app;
