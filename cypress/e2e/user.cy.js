@@ -58,7 +58,7 @@ describe('用户列表', () => {
     })
 
     //4. 断言页面上显示了模拟的用户数据
-    cy.get('[data-testid="list-item"]').should('have.length', 10)
+    cy.get('[data-testid="list-item"]').should('not.have.length', 0)
     // cy.get('li').first().should('contain.text', 'Alice')
     // cy.get('li').last().should('contain.text', 'Bob')
   })

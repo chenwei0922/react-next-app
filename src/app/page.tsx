@@ -20,6 +20,9 @@ export default function Home() {
         <Button asChild>
           <Link href={"/koa"}>koa-server</Link>
         </Button>
+        <Button asChild>
+          <Link href={"/music"}>music</Link>
+        </Button>
       </Flex>
     </main>
   );

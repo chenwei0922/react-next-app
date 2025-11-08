@@ -29,7 +29,7 @@ export default function RootLayout({
         {children}
         {/* <ThemePanel /> */}
         </Theme>
-        <GoogleAnalytics gaId={'G-ZL1YVF18VG'} />
+        {/* <GoogleAnalytics gaId={'G-ZL1YVF18VG'} /> */}
       </body>
     </html>
   )
