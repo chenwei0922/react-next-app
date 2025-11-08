@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <main
+    class="p-24"
+  >
+    <div
+      class="rt-Flex rt-r-fd-column rt-r-gap-4"
+    >
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/about"
+      >
+        Go About(cypress)
+      </a>
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/d3"
+      >
+        D3.js图表
+      </a>
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/3d"
+      >
+        3D渲染Three.js
+      </a>
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/list"
+      >
+        无限滚动/虚拟列表
+      </a>
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/koa"
+      >
+        koa-server
+      </a>
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/music"
+      >
+        music
+      </a>
+    </div>
+  </main>
+</div>
+`;
