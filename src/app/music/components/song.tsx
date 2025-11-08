@@ -2,7 +2,7 @@
 import { Flex, Text } from "@radix-ui/themes";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getSongLyrics, getSongUrl } from "../service";
-import { cn } from "@/common/utils";
+import { cn, getAssetUrl } from "@/common/utils";
 
 export const Song = () => {
   const [songId, setSongId] = useState(""); //1306923998
@@ -158,7 +158,7 @@ export const Song = () => {
             // console.log('///i', i-1, i, currentTime)
             setIndex(i === -1 ? result.length - 1 : i - 1);
           }}
-          src={url}
+          src={getAssetUrl(`/audio/song.mp3`)}
           controls
         ></audio>
       )}
