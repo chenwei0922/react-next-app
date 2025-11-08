@@ -26,6 +26,7 @@ export const CustomVirtualList = ({ results, handleMore, loading, hasMore }: { r
         {visibleItems.map(({data:item, originalIndex, offsetTop}) => (
           <div
             key={item.ID}
+            data-testid="list-item"
             className="h-[227px] w-full flex justify-center absolute"
             data-virtual-index={originalIndex+1}
             style={{

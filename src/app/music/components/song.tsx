@@ -9,6 +9,9 @@ export const Song = () => {
   const [result, setResult] = useState<{ time: number; text: string }[]>([]);
   const [url, setUrl] = useState("");
   const [index, setIndex] = useState<number>(-1);
+  const [isManualScrolling, setIsManualScrolling] = useState(false);
+  const manualScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     getSongLyrics(songId).then((res) => {
@@ -35,20 +38,82 @@ export const Song = () => {
     [index, result.length]
   );
 
+  // 处理手动滚动
+  const handleWheel = useCallback(
+    (e: WheelEvent) => {
+      e.preventDefault();
+      const container = containerRef.current;
+      if (!container) return;
+
+      const itemH = 40;
+      const maxOffset = result.length * itemH - container.clientHeight;
+      
+      // 更新 offset
+      setOffset((prevOffset) => {
+        let newOffset = prevOffset + e.deltaY;
+        newOffset = Math.min(Math.max(0, newOffset), maxOffset);
+        
+        // 根据新的 offset 计算 index
+        // const centerOffset = newOffset + container.clientHeight / 2 - itemH / 2;
+        // const calculatedIndex = Math.round(centerOffset / itemH);
+        // const newIndex = Math.max(0, Math.min(calculatedIndex, result.length - 1));
+        // setIndex(newIndex);
+        
+        return newOffset;
+      });
+
+      // 标记为手动滚动
+      setIsManualScrolling(true);
+      
+      // 清除之前的定时器
+      if (manualScrollTimerRef.current) {
+        clearTimeout(manualScrollTimerRef.current);
+      }
+      
+      // 2秒后恢复自动跟随
+      manualScrollTimerRef.current = setTimeout(() => {
+        setIsManualScrolling(false);
+      }, 2000);
+    },
+    [result.length]
+  );
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    // 初始计算
-    calculateOffset(container);
+    
+    // 监听滚轮事件
+    container.addEventListener("wheel", handleWheel, { passive: false });
+    
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+      if (manualScrollTimerRef.current) {
+        clearTimeout(manualScrollTimerRef.current);
+      }
+    };
+  }, [handleWheel]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    
+    // 只有在非手动滚动时才自动跟随
+    if (!isManualScrolling) {
+      calculateOffset(container);
+    }
 
     // 监听容器尺寸变化
-    const resizeObserver = new ResizeObserver(() => calculateOffset(container));
+    const resizeObserver = new ResizeObserver(() => {
+      if (!isManualScrolling) {
+        calculateOffset(container);
+      }
+    });
     resizeObserver.observe(container);
 
     return () => {
       resizeObserver.unobserve(container)
     };
-  }, [calculateOffset, index]);
+  }, [calculateOffset, index, isManualScrolling]);
 
   return (
     <Flex
@@ -85,6 +150,9 @@ export const Song = () => {
       {url && (
         <audio
           onTimeUpdate={(e) => {
+            // 手动滚动时不自动更新歌词索引
+            // if (isManualScrolling) return;
+            
             const currentTime = e.currentTarget.currentTime;
             const i = result?.findIndex((it) => it.time > currentTime);
             // console.log('///i', i-1, i, currentTime)
