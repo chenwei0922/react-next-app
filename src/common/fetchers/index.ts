@@ -59,7 +59,7 @@ const onFetchError = (err:any, p: RequestInit) => {
 }
 
 const fullUrl = (apiPath: string, apiBase?: string): string => {
-  if (!apiBase || /^https?:\/\//i.test(apiPath)) {
+  if (!apiBase || /^https?:\/\//i.test(apiPath) || apiPath.startsWith('/music')) {
     return apiPath
   }
   if (apiPath.startsWith('/')) {

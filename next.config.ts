@@ -85,10 +85,13 @@ const nextConfig: NextConfig = {
   // basePath: process.env.NODE_ENV === 'production' ? '/out' : '',
   // assetPrefix: process.env.NODE_ENV === 'production' ? '/out' : '',
   // 配置代理
-  // async rewrites() {
-  //   // Example:
-  //   return [{ source: '/xgc/:path*', destination: 'https://api.xter.io/xgc/:path*' }];
-  // },
+  async rewrites() {
+    // Example:
+    // return [{ source: '/xgc/:path*', destination: 'https://api.xter.io/xgc/:path*' }];
+
+    // https://music.163.com/api/song/lyric?id=1306923998&lv=1&kv=1&tv=-1
+    return [{ source: '/music/api/:path*', destination: 'https://music.163.com/api/:path*' }]
+  },
 
   // 自定义 webpack 配置（如果需要）
   // webpack: (config) => {
