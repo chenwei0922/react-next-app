@@ -1,4 +1,4 @@
-import { PointerEventHandler, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseScrollableListOptions {
   itemHeight: number;
@@ -9,9 +9,8 @@ interface UseScrollableListOptions {
 }
 
 interface UseScrollableListReturn {
-  containerRef: React.RefObject<HTMLDivElement>;
+  containerRef: React.RefObject<HTMLDivElement | null>;
   offset: number;
-  isTouching: boolean;
   isManualScrolling: boolean;
 }
 

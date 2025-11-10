@@ -33,15 +33,15 @@ export const Song = () => {
   });
   const audioRef = useRef<HTMLAudioElement>(null)
 
-  const onPlay = () => {
-    const audio = audioRef.current
-    if(!audio) return
-    if(audio.played){
-      audio.pause()
-    }else if(audio.paused){
-      audio.play()
-    }
-  }
+  // const onPlay = () => {
+  //   const audio = audioRef.current
+  //   if(!audio) return
+  //   if(audio.played){
+  //     audio.pause()
+  //   }else if(audio.paused){
+  //     audio.play()
+  //   }
+  // }
 
 
   return (
