@@ -26,6 +26,9 @@ export default function Home() {
         <Button asChild>
           <Link href={"/music"}>music</Link>
         </Button>
+        <Button asChild>
+          <Link href={"/video"}>video</Link>
+        </Button>
       </Flex>
     </main>
   );

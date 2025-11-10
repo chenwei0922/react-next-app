@@ -57,6 +57,13 @@ exports[`renders homepage unchanged 1`] = `
       >
         music
       </a>
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/video"
+      >
+        video
+      </a>
     </div>
   </main>
 </div>
