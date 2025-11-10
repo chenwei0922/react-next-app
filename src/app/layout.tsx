@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+// import { Inter } from 'next/font/google'
 import '../styles/globals.css'
 import FontLoader from '@/components/FontLoader'
 // import './globals.css'
-import { GoogleAnalytics } from '@next/third-parties/google'
+// import { GoogleAnalytics } from '@next/third-parties/google'
 import "@radix-ui/themes/styles.css";
 import { Theme, ThemePanel } from "@radix-ui/themes";
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,7 +24,7 @@ export default function RootLayout({
       <head>
         <FontLoader />
       </head>
-      <body className={inter.className}>
+      <body className={''}>
         <Theme appearance={'dark'}>
         {children}
         {/* <ThemePanel /> */}

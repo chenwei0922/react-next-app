@@ -9,6 +9,9 @@ export default function Home() {
           <Link href={"/about"}>Go About(cypress)</Link>
         </Button>
         <Button asChild>
+          <Link href={"https://chenwei0922.github.io/echart-example/"}>echart图表</Link>
+        </Button>
+        <Button asChild>
           <Link href={"/d3"}>D3.js图表</Link>
         </Button>
         <Button asChild>

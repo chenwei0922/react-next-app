@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <section
       className={cn(
-        "w-screen min-h-screen",
+        "w-screen min-w-[1000px] min-h-screen",
         "bg-repeat bg-cover bg-center",
         // "bg-[url(/images/bg.jpg)]"
       )}
