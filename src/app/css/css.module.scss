@@ -1,6 +1,103 @@
+@use "sass:string";
+@use "sass:math";
 
-.item{
-  width: 100px;
-  height: 100px;
-  background-color: white;
+.star-sky {
+  $duration: 400s; // 星星闪烁时间
+  $count: 500; // 生成星星数量
+  $skyWidth: 100; // 屏幕宽度 100vw
+  $skyHeight: 300; // 屏幕高度 300px
+
+  width: string.unquote($skyWidth+'vw');
+  height: string.unquote($skyHeight+'px');
+  background-color: black;
+  position: relative;
+  overflow: hidden;
+
+  @function getShadows($n) {
+    // 生成阴影
+    $n: math.floor($n);
+    $shadows: '#{math.random($skyWidth)}vw #{math.random($skyHeight)}px #fff';
+
+    @for $i from 2 through $n {
+      $shadows: '#{$shadows} , #{math.random($skyWidth)}vw #{math.random($skyHeight)}px #fff';
+    }
+
+    @return string.unquote($string: $shadows);
+  }
+
+  @for $i from 1 through 3 {
+    $duration: math.div($duration, 2);
+    $count: math.div($count, 2);
+    $size: #{$i}px;
+
+    // $size: 30px;
+    .layer#{$i} {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: #fff;
+      margin: 10px;
+
+      width: $size;
+      height: $size;
+      border-radius: 50%;
+      box-shadow: getShadows($count);
+      animation: moveUp $duration linear infinite;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: string.unquote($skyHeight+'px');
+        width: $size;
+        height: $size;
+        background-color: #fff;
+        border-radius: inherit;
+        box-shadow: inherit;
+      }
+    }
+  }
+
+  @keyframes moveUp {
+    0% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(-300px);
+    }
+  }
+}
+
+.card-flip-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .card {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transition: transform 1s;
+    perspective: 500px;
+    transform-style: preserve-3d;
+    &:hover{
+      transform: rotateY(180deg);
+    }
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .card-front {
+      background-color: green;
+    }
+    .card-back {
+      background-color: orange;
+      transform: rotateY(180deg);
+    }
+  }
 }
