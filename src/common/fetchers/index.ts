@@ -55,7 +55,7 @@ const onFetchError = (err:any, p: RequestInit) => {
     _event: 'catchApiError',
     time: +new Date()
   }
-  console.error(JSON.stringify(errorInfo))
+  console.error('onFetchError', errorInfo)
 }
 
 const fullUrl = (apiPath: string, apiBase?: string): string => {

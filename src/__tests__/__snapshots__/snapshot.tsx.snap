@@ -64,6 +64,27 @@ exports[`renders homepage unchanged 1`] = `
       >
         video
       </a>
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/audio"
+      >
+        audio
+      </a>
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/scroll"
+      >
+        轮播
+      </a>
+      <a
+        class="rt-reset rt-BaseButton rt-r-size-2 rt-variant-solid rt-Button"
+        data-accent-color=""
+        href="/css"
+      >
+        css动画
+      </a>
     </div>
   </main>
 </div>

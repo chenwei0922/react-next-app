@@ -29,6 +29,15 @@ export default function Home() {
         <Button asChild>
           <Link href={"/video"}>video</Link>
         </Button>
+        <Button asChild>
+          <Link href={"/audio"}>audio</Link>
+        </Button>
+        <Button asChild>
+          <Link href={"/scroll"}>轮播</Link>
+        </Button>
+        <Button asChild>
+          <Link href={"/css"}>css动画</Link>
+        </Button>
       </Flex>
     </main>
   );

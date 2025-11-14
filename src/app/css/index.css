@@ -1,0 +1,21 @@
+
+
+.eraser-text{
+  --p: 0%;
+  background: linear-gradient(to right, transparent var(--p), #000 calc(var(--p) + 30px));
+  /* 纯css效果 */
+  color: transparent;
+  animation: erase 5s linear forwards;
+}
+
+@property --p {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@keyframes erase {
+  to{
+    --p: 100%;
+  }
+}

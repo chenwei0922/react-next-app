@@ -19,17 +19,21 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [result, setResult] = useState('')
-
+  const [error, setError] = useState('')
   
   const handleRegister = () => {
     console.log('register', email, password, name);
-    postRegister({email, password, name}).then((res)=> setResult(JSON.stringify(res))).catch(error=> alert(error?.message || 'error'))
+    postRegister({email, password, name}).then((res)=> setResult(JSON.stringify(res))).catch(error=> {
+      alert(error?.message || 'error')
+      setError(error?.message || 'error')
+    })
   }
 
   return (
     <Card>
       <Flex direction="column" gap="4">
         <Text>Register Form</Text>
+        <Text className="text-red-500">{error}</Text>
         <TextField.Root placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></TextField.Root>
         <TextField.Root placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></TextField.Root>
         <TextField.Root placeholder="Name" value={name} onChange={(e) => setName(e.target.value)}></TextField.Root>
@@ -44,16 +48,21 @@ const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [result, setResult] = useState('')
+  const [error, setError] = useState('')
   
   const handleLogin = () => {
     console.log('login', email, password);
-    postLogin({email, password}).then((res)=> setResult(JSON.stringify(res))).catch(error=> alert(error?.message || 'error'))
+    postLogin({email, password}).then((res)=> setResult(JSON.stringify(res))).catch(error=> {
+      alert(error?.message || 'error')
+      setError(error?.message || 'error')
+    })
   }
 
   return (
     <Card>
       <Flex direction="column" gap="4">
         <h1>Login Form</h1>
+        <Text className="text-red-500">{error}</Text>
         <TextField.Root placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></TextField.Root>
         <TextField.Root placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></TextField.Root>
         <Button onClick={handleLogin}>Login</Button>
@@ -66,16 +75,21 @@ const LoginForm = () => {
 const UserPanel = () => {
   const [token, setToken] = useState('');
   const [result, setResult] = useState('')
+  const [error, setError] = useState('')
   
   const handleProfile = () => {
     if(!token) return
-    getProfile(token).then((res)=> setResult(JSON.stringify(res))).catch(error=> alert(error?.message || 'error'))
+    getProfile(token).then((res)=> setResult(JSON.stringify(res))).catch(error=> {
+      alert(error?.message || 'error')
+      setError(error?.message || 'error')
+    })
   }
 
   return (
     <Card>
       <Flex direction="column" gap="4">
         <h1>Get Profile</h1>
+        <Text className="text-red-500">{error}</Text>
         <TextField.Root placeholder="Bearer Token" value={token} onChange={(e) => setToken(e.target.value)}></TextField.Root>
         <Button onClick={handleProfile}>Get</Button>
         <Text>{result}</Text>

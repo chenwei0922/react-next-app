@@ -64,7 +64,7 @@ export const Song = () => {
             setIndex(i === -1 ? result.length - 1 : i - 1);
           }}
           src={getAssetUrl(`/audio/song.mp3`)}
-          controls
+          controls          
           onPlay={()=> setIsPlay(true)}
           // className="hidden"
         ></audio>
