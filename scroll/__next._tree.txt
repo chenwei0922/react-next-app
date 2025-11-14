@@ -1,0 +1,3 @@
+:HL["/react-next-app/_next/static/chunks/3a174459ad6f68a8.css","style"]
+:HL["/react-next-app/_next/static/chunks/1f294008205010ab.css","style"]
+0:{"buildId":"j1llo4IlDorbHb39NQDuI","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"scroll","paramType":null,"paramKey":"scroll","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
