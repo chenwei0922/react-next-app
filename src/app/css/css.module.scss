@@ -168,3 +168,75 @@
     }
   }
 }
+
+.nine-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  width: 200px;
+  height: 200px;
+  transition: .5s;
+  gap: 4px;
+
+  @for $i from 1 through 9 {
+    .grid-item:nth-child(#{$i}) {
+      background-color: hsl($i * 40, 100%, 70%); // 使用循环生成不同的颜色
+    }
+
+    &:has(.grid-item:nth-child(#{$i}):hover) {
+      $r: math.floor(($i - 1) / 3 + 1);
+      $c: (
+        $i - 1) % 3 + 1;
+      $arr: 1fr 1fr 1fr; // 初始化数组
+      $rows: set-nth($arr, $r , 2fr
+      ); // 将第r行设置为2fr
+    $cols: set-nth($arr, $c , 2fr); // 将第c列设置为2fr
+    grid-template-rows: $rows;
+    grid-template-columns: $cols;
+  }
+}
+}
+
+.nine-grid-animate {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 200px;
+  height: 200px;
+  transition: .5s;
+  gap: 4px;
+  grid-template:
+    "A A B"
+    "C D B"
+    "C E E"; // 定义网格布局
+  --d: 360deg;
+  animation: rotation 10s infinite linear;
+
+  @for $i from 1 through 5 {
+    .grid-item:nth-child(#{$i}) {
+      $arr: "A" "B" "C" "D" "E"; // 初始化数组
+      //根据索引取数组中的值
+      grid-area: string.unquote(nth($arr, $i)); // 将第i个元素设置为对应的网格区域
+      background-color: hsl($i * 40, 100%, 70%); // 使用循环生成不同的颜色
+      overflow: hidden;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .grid-item img {
+    width: 100%;
+    height: 100%;
+    scale: 3;
+    object-fit: cover;
+    animation: rotation 10s infinite linear;
+  }
+
+  @keyframes rotation {
+    to {
+      transform: rotate(var(--d));
+    }
+  }
+}
