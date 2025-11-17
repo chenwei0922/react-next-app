@@ -10,11 +10,11 @@ import { WaterWaveAnimate } from "./components/水波进度条";
 export default function Home() {
   return (
     <main className="">
-      {/* <TextErasingEffect />
+      <TextErasingEffect />
       <StarSky />
       <WaterWaveAnimate />
       <CardFlip />
-      <BaseContainer /> */}
+      <BaseContainer />
       <NineGridGrid />
     </main>
   );
