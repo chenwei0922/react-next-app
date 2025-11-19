@@ -36,6 +36,7 @@
     "react-virtualized-auto-sizer": "^1.0.26",
     "react-window": "^2.2.2",
     "sass": "^1.94.0",
+    "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.3.1",
     "three": "^0.180.0"
   },
