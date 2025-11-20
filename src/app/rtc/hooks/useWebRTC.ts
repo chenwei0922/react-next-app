@@ -3,16 +3,15 @@ import io from 'socket.io-client'
 import { Socket } from 'socket.io-client'
 
 export const useWebRTC = () => {
-  const localStreamRef = useRef<MediaStream | null>(null);
   const localVideoRef = useRef<HTMLVideoElement | null>(null);
   const remoteVideoRef = useRef<HTMLVideoElement | null>(null);
+  const localStreamRef = useRef<MediaStream | null>(null);
   const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
   const socketRef = useRef<Socket | null>(null);
 
   const [users, setUsers] = useState<string[]>([]);
   const [roomId, setRoomId] = useState('room1');
   const [joined, setJoined] = useState(false);
-  const [connectionStatus, setConnectionStatus] = useState('disconnected');
 
   //获取本地媒体流
   const getLocalStream = async () => {
@@ -31,46 +30,59 @@ export const useWebRTC = () => {
 
   //创建rtc连接
   const createPeerConnection = useCallback(() => {
-    const peerConnection = new RTCPeerConnection({
-      iceServers: [
-        {
-          urls: 'stun:stun.l.google.com:19302',
-        },
-      ],
-    });
+    const pc = new RTCPeerConnection(
+      //   {
+      //   iceServers: [
+      //     {
+      //       urls: 'stun:stun.l.google.com:19302',
+      //     },
+      //   ],
+      // }
+    );
     //添加本地流
-    if (localStreamRef.current) {
-      localStreamRef.current.getTracks().forEach((track) => {
-        peerConnection.addTrack(track, localStreamRef.current as MediaStream);
+    const localStream = localStreamRef.current;
+    if (localStream) {
+      localStream.getTracks().forEach((track) => {
+        pc.addTrack(track, localStream);
       });
     }
 
     //远程流处理
-    peerConnection.ontrack = (event) => {
-      if (remoteVideoRef.current) {
-        console.log('📹 收到远程流', event);
-        remoteVideoRef.current.srcObject = event.streams[0];
-      }
+    pc.ontrack = (event) => {
+      const video = remoteVideoRef.current;
+      if (!video) return;
+      if(video.srcObject) return;
+
+      console.log('📹 收到远程流', event);
+      // const remoteStream = event.streams[0];
+      // console.log('📹 视频轨道数量:', remoteStream.getVideoTracks().length);
+      // console.log('📹 音频轨道数量:', remoteStream.getAudioTracks().length)
+      // const vidoeTrack = remoteStream.getVideoTracks()[0];
+      // console.log('📹 视频轨道状态:', vidoeTrack?.readyState);
+      // console.log('📹 视频轨道设置:', vidoeTrack?.getSettings());
+
+      video.srcObject = event.streams[0];
     }
     //ICE候选处理
-    peerConnection.onicecandidate = (event) => {
+    pc.onicecandidate = (event) => {
       if (event.candidate) {
         console.log('📹 onicecandidate', event);
-        socketRef.current?.emit('ice-candidate', {
+        socketRef.current?.emit('webrtc-candidate', {
           targetUserId: users[0], // 目标用户ID
           candidate: event.candidate, // ICE候选
+          roomId: roomId // 房间ID
         });
       }
     }
 
     //连接状态处理
-    peerConnection.onconnectionstatechange = () => {
-      console.log(`🔗 PeerConnection 状态: ${peerConnection.connectionState}`);
+    pc.oniceconnectionstatechange = () => {
+      console.log(`🔗 PeerConnection 状态: ${pc.iceConnectionState}`);
     }
 
-    peerConnectionRef.current = peerConnection; //保存引用
-    return peerConnection;
-  }, [users]);
+    peerConnectionRef.current = pc; //保存引用
+    return pc;
+  }, [users, roomId]);
 
   //加入房间
   const joinRoom = async (newRoomId: string = 'room1') => {
@@ -108,8 +120,6 @@ export const useWebRTC = () => {
     if (remoteVideoRef.current) {
       remoteVideoRef.current.srcObject = null;
     }
-    //重置状态
-    setConnectionStatus('disconnected');
   }
 
   // 创建呼叫
@@ -146,7 +156,7 @@ export const useWebRTC = () => {
      * newScoket.disconnect: () => void
      * newScoket.connect: () => void
      */
-    if(socketRef.current) return;
+    if (socketRef.current) return;
     console.log('🔗 创建socket连接', process.env.WEBRTC_SOCKET_URL);
     const newSocket = io(process.env.WEBRTC_SOCKET_URL)
     socketRef.current = newSocket;
@@ -209,7 +219,7 @@ export const useWebRTC = () => {
     });
     newSocket.on('webrtc-offer', handleWebRTCOffer);
     newSocket.on('webrtc-answer', handleWebRTCAnswer);
-    newSocket.on('ice-candidate', handleICECandidate);
+    newSocket.on('webrtc-candidate', handleICECandidate);
     return () => {
       newSocket.off('connect');
       newSocket.off('disconnect');
@@ -218,7 +228,7 @@ export const useWebRTC = () => {
       newSocket.off('current-users');
       newSocket.off('webrtc-offer');
       newSocket.off('webrtc-answer');
-      newSocket.off('ice-candidate');
+      newSocket.off('webrtc-candidate');
       newSocket.close()
     }
   }, [])
