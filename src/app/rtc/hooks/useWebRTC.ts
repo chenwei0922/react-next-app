@@ -12,6 +12,7 @@ export const useWebRTC = () => {
   const [users, setUsers] = useState<string[]>([]);
   const [roomId, setRoomId] = useState('room1');
   const [joined, setJoined] = useState(false);
+  const [iceConnectionState, setIceConnectionState] = useState('new');
 
   //获取本地媒体流
   const getLocalStream = async () => {
@@ -78,6 +79,7 @@ export const useWebRTC = () => {
     //连接状态处理
     pc.oniceconnectionstatechange = () => {
       console.log(`🔗 PeerConnection 状态: ${pc.iceConnectionState}`);
+      setIceConnectionState(pc.iceConnectionState);
     }
 
     peerConnectionRef.current = pc; //保存引用
@@ -97,13 +99,11 @@ export const useWebRTC = () => {
       console.error('❌ 加入房间失败:', error);
     }
   }
-
-  //离开房间
-  const leaveRoom = () => {
-    socketRef.current?.emit('leave-room', { roomId });
+  const cleanup = () => {
     setRoomId('');
     setJoined(false);
     setUsers([]);
+    setIceConnectionState('new');
     // 清理本地流和 PeerConnection
     if (localStreamRef.current) {
       localStreamRef.current.getTracks().forEach(track => track.stop());
@@ -120,6 +120,12 @@ export const useWebRTC = () => {
     if (remoteVideoRef.current) {
       remoteVideoRef.current.srcObject = null;
     }
+  }
+
+  //离开房间
+  const leaveRoom = () => {
+    socketRef.current?.emit('leave-room', { roomId });
+    cleanup();
   }
 
   // 创建呼叫
@@ -212,6 +218,7 @@ export const useWebRTC = () => {
       if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = null;
       }
+      setIceConnectionState('new');
     });
     newSocket.on('current-users', (data: { users: string[]; roomId: string }) => {
       console.log('👥 当前房间的用户列表:', data.users);
@@ -240,6 +247,7 @@ export const useWebRTC = () => {
     localVideoRef,
     remoteVideoRef,
     users,
-    joined
+    joined,
+    connected: iceConnectionState === 'connected'
   }
 }

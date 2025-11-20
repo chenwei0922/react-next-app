@@ -33,6 +33,9 @@ export default function Home() {
           <Link href={"/audio"}>audio</Link>
         </Button>
         <Button asChild>
+          <Link href={"/rtc"}>WebRTC</Link>
+        </Button>
+        <Button asChild>
           <Link href={"/scroll"}>轮播</Link>
         </Button>
         <Button asChild>
