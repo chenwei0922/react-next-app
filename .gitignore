@@ -57,3 +57,5 @@ Thumbs.db
 .tef_dist/*
 node-functions/koa/config/*
 !node-functions/koa/config/db.js
+
+.doc

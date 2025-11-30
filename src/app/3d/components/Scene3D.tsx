@@ -1,20 +1,9 @@
 // components/Scene3D.jsx
-import * as THREE from "three";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Box, useHelper, useTexture, Environment, useCubeTexture } from "@react-three/drei";
-// 临时添加辅助工具查看光源位置
-import { useMemo, useRef } from "react";
-import {
-  BoxGeometry,
-  BoxHelper,
-  DirectionalLight,
-  Mesh,
-  PointLight,
-  PointLightHelper,
-  SpotLight,
-} from "three";
-import { getAssetUrl } from "@/common/utils";
-import { CirCleMesh, SceneContent } from "./common";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import { useRef } from "react";
+import {PointLight} from "three";
+import { CirCleMesh } from "./common";
 
 /**
  * position={[x, y, z]}  // 光源在3d空间中的位置 

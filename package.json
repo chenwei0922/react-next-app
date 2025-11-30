@@ -5,6 +5,8 @@
   "scripts": {
     "upgrade:lib": "npx npm-check-updates -u && npm install",
     "upgrade:next": "bash ./sh/upgrade-next.sh",
+    "analyze": "ANALYZE=true pnpm build --webpack",
+    "analyze:dev": "ANALYZE=true pnpm build:dev --webpack",
     "dev": "env-cmd -f .env.dev next dev",
     "build": "env-cmd -f .env.prod next build",
     "build:github": "env-cmd -f .env.stage next build",
@@ -22,13 +24,16 @@
     "test:e2e:prod": "start-server-and-test start http://localhost:3000 cypress:run"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "0.10.22-rc.20250304",
     "@next/third-parties": "^16.0.1",
     "@radix-ui/themes": "^3.2.1",
-    "@react-three/drei": "^10.7.6",
-    "@react-three/fiber": "^9.4.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.4.2",
     "ahooks": "^3.9.6",
     "clsx": "^2.1.1",
     "d3": "^7.9.0",
+    "framer-motion": "^12.23.24",
+    "lucide-react": "^0.555.0",
     "next": "^16.0.0",
     "query-string": "^9.3.1",
     "react": "^19.2.0",
@@ -38,9 +43,11 @@
     "sass": "^1.94.0",
     "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.3.1",
-    "three": "^0.180.0"
+    "three": "^0.181.2",
+    "use-debounce": "^10.0.6"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.0.5",
     "@tailwindcss/postcss": "^4",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
@@ -51,7 +58,7 @@
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/three": "^0.180.0",
+    "@types/three": "^0.181.0",
     "autoprefixer": "^10.4.21",
     "cypress": "^15.5.0",
     "env-cmd": "^11.0.0",

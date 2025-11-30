@@ -1,4 +1,6 @@
 import type { NextConfig } from "next";
+import withBundleAnalyzer from '@next/bundle-analyzer'
+
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const nextConfig: NextConfig = {
   env: {
@@ -122,5 +124,8 @@ const nextConfig: NextConfig = {
   //   return config;
   // },
 }
-
-export default nextConfig;
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// })
+export default withBundleAnalyzer({enabled: process.env.ANALYZE === 'true'})(nextConfig)
+// export default nextConfig;

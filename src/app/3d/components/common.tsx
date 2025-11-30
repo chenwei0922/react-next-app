@@ -12,9 +12,9 @@ import {
   useHelper,
   useTexture,
 } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { BackSide, BoxGeometry, BoxHelper, LinearFilter, LoadingManager, Mesh, RGBFormat, SphereGeometry, Texture, TextureLoader, Vector3 } from "three";
+import { useThree } from "@react-three/fiber";
+import { useEffect, useMemo, useRef } from "react";
+import { BackSide, BoxGeometry, BoxHelper, Mesh, Vector3 } from "three";
 
 interface MeshBoxProps {
   color?: string;
