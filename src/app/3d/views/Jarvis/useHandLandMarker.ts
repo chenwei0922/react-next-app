@@ -33,6 +33,7 @@ export const useHandSkeleton = () => {
   useEffect(() => {
     let animationFrameId: number;
     let handLandmarker: HandLandmarker;
+    const video = videoRef.current; // 保存 ref 的当前值
 
     const setupVision = async () => {
       const vision = await FilesetResolver.forVisionTasks(
@@ -201,10 +202,10 @@ export const useHandSkeleton = () => {
     setupVision();
 
     return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        (videoRef.current.srcObject as MediaStream)
-          .getTracks()
-          .forEach((t) => t.stop());
+      if (video) {
+        (video.srcObject as MediaStream).getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+        console.log('unmount')
       }
       cancelAnimationFrame(animationFrameId);
     };
