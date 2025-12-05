@@ -1,9 +1,7 @@
-import { PhotoEdit } from "./components/PhotoEdit";
 
+import { MenuAction } from "./views/MenuAction";
 export default function Home(){
   return (
-    <main>
-      <PhotoEdit />
-    </main>
+   <MenuAction />
   )
 }

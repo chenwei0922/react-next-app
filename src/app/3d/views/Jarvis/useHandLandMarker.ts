@@ -182,6 +182,7 @@ export const useHandSkeleton = () => {
         const p1 = landmarks[i];
         const p2 = landmarks[j];
         ctx.beginPath();
+        //前面已经给canvas设置成视频的宽高，为什么还要乘以canvas的宽高，因为canvas的宽高是相对于视窗的，而视频的宽高是相对于画布的，所以需要乘以canvas的宽高，才能让线条的起点和终点在视频上
         ctx.moveTo(p1.x * ctx.canvas.width, p1.y * ctx.canvas.height);
         ctx.lineTo(p2.x * ctx.canvas.width, p2.y * ctx.canvas.height);
         ctx.stroke();
