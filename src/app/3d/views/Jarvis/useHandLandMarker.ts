@@ -73,7 +73,7 @@ export const useHandSkeleton = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       const startTimeMs = performance.now();
-      const results = handLandmarker.detectForVideo(video, startTimeMs);
+      const results = handLandmarker.detectForVideo(video, startTimeMs); // MediaPipe 结果
 
       // 重置交互状态
       const newInteractionState = { ...interactionState.current };

@@ -39,6 +39,9 @@ export default function Home() {
           <Link href={"/photo"}>photo</Link>
         </Button>
         <Button asChild>
+          <Link href={"/ai"}>ai</Link>
+        </Button>
+        <Button asChild>
           <Link href={"/scroll"}>轮播</Link>
         </Button>
         <Button asChild>
