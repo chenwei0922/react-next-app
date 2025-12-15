@@ -1,4 +1,4 @@
 :HL["/react-next-app/_next/static/chunks/2fb3184d96e5da3a.css","style"]
 :HL["/react-next-app/_next/static/chunks/1f294008205010ab.css","style"]
-:HL["/react-next-app/_next/static/chunks/2adaa5cc2298d96f.css","style"]
-0:{"buildId":"U3IidzfUOPwR8DJYIiv3j","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"css","paramType":null,"paramKey":"css","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+:HL["/react-next-app/_next/static/chunks/54a92ce380d39c0d.css","style"]
+0:{"buildId":"pEPlN6SyQH1H_o5WdXvT2","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"css","paramType":null,"paramKey":"css","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
