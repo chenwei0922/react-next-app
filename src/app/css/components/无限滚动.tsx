@@ -128,7 +128,7 @@ export const CarouselJsRAF = () => {
     };
     // loop();
 
-    const onPointerDown = (e) => {
+    const onPointerDown = (e:PointerEvent) => {
       console.log("onPointerDown");
       isDragging = true;
       moved = false;
@@ -145,7 +145,7 @@ export const CarouselJsRAF = () => {
         cancelAnimationFrame(rafId); //取消自动逻辑
       }
     };
-    const onPointerMove = (e) => {
+    const onPointerMove = (e:PointerEvent) => {
       if (!isDragging) return;
       //点击事件: <5px 判定为点击
       if (Math.abs(e.clientX - startX) > 5) {
@@ -159,7 +159,7 @@ export const CarouselJsRAF = () => {
       loop();
       lastX = e.clientX;
     };
-    const onPointerUp = (e) => {
+    const onPointerUp = (e:PointerEvent) => {
       div.releasePointerCapture(e.pointerId); //释放捕获
 
       //点击事件: <5px 判定为点击
