@@ -241,7 +241,7 @@
 }
 
 .carousel {
-  width: 100%;
+  width: 100vw;
   border: 5px solid red;
   display: flex;
   overflow-x: auto;
@@ -254,6 +254,7 @@
     display: none;
   }
   .group{
+    // width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -261,15 +262,19 @@
     padding-right: 1em;
   }
   .animate{
+    // padding-right: 1em;
     animation: spin 5s linear infinite;
   }
   .card{
-    flex: 0 0 100px; // 设置卡片宽度为5em
+    // flex: 0 0 100px; // 设置卡片宽度为5em
+    width: 5em;
     height: 100px;
     background-color: cornflowerblue;
+    border:solid 1px yellow;
     font-size: 20px;
     text-align: center;
     align-content: center;
+    -webkit-text-size-adjust: 100%;
   }
   @keyframes spin {
     from {translate: 0;}

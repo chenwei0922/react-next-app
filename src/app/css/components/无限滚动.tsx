@@ -13,7 +13,7 @@ export const Carousel = () => {
           </div>
         ))}
       </div>
-      <div inert className={cn(style.group, style.animate)}>
+      <div inert aria-hidden className={cn(style.group, style.animate)}>
         {new Array(count).fill(0).map((_, i) => (
           <div key={i} className={style.card}>
             {i + 1}
@@ -34,33 +34,28 @@ export const CarouselJsAnimate = () => {
   };
   useEffect(() => {
     //animate动画
+    //ios 真机，safari撒花姑娘会闪一下，边界处，是 Safari（iOS）对 Web Animations API + 百分比 transform 的已知渲染问题
     const div = divRef.current;
     if (!div) return;
+    const contentWidth = div.scrollWidth / 2;
     const animate = div.animate(
-      [{ transform: "translateX(0)" }, { transform: "translateX(-50%)" }],
+      [{ transform: "translateX(0)" }, { transform: `translateX(-${contentWidth}px)` }],
       { duration: 5000, iterations: Infinity, easing: "linear" }
     );
-    animate.pause();
-    div.addEventListener("mouseenter", () => {
-      animate.pause();
-    });
-    div.addEventListener("mouseleave", () => {
-      animate.play();
-    });
+    const onEnter = () => animate.pause();
+    const onLeave = () => animate.play();
+    div.addEventListener("mouseenter", onEnter);
+    div.addEventListener("mouseleave", onLeave);
     return () => {
       animate.cancel();
       //移除鼠标监听事件
-      div.removeEventListener("mouseenter", () => {
-        animate.pause();
-      });
-      div.removeEventListener("mouseleave", () => {
-        animate.play();
-      });
+      div.removeEventListener("mouseenter", onEnter);
+      div.removeEventListener("mouseleave", onLeave);
     };
   }, []);
   return (
     <div className={style.carousel}>
-      <div className={style.group} ref={divRef}>
+      <div className={cn(style.group)} ref={divRef}>
         {data.map((_, i) => {
           const realIndex = i % count;
           return (
@@ -126,7 +121,7 @@ export const CarouselJsRAF = () => {
         rafId = requestAnimationFrame(loop);
       }
     };
-    // loop();
+    loop();
 
     const onPointerDown = (e:PointerEvent) => {
       console.log("onPointerDown");
@@ -182,8 +177,8 @@ export const CarouselJsRAF = () => {
       isDragging = false;
       //5s后启动自动逻辑，防止拖拽后立即启动
       timer = setTimeout(() => {
-        // speed = 3;
-        // loop();
+        speed = 3;
+        loop();
       }, 5000);
     };
 
