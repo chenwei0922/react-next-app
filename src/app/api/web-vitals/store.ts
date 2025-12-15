@@ -21,7 +21,7 @@ export const pushStore = (item: WebVitalItem) => {
   const filtered =store.filter((item) => item.timestamp >= now - WINDOW_MS);
   store.length = 0
   store.push(...filtered);
-  // console.log("📊 Web Vital:", store.length, item.route);
+  console.log("📊 Web Vital Push:", store.length, item.route);
 }
 
 export const MAX_STORE_SIZE = 500

@@ -2,7 +2,7 @@ import { cn } from "@/common/utils";
 import { Table, Text } from "@radix-ui/themes";
 
 async function getData() {
-  const res = await fetch("http://localhost:3000/api/metrics", {
+  const res = await fetch(process.env.PAGE_ORIGIN+"/api/metrics", {
     cache: "no-store",
   });
   return res.json();

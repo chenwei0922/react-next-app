@@ -12,7 +12,7 @@ const THRESHOLD = {
 
 export const GET = async (req: NextRequest) => {
   const grouped: Record<string, number[]> = {};
-  // console.log("📊 Web 3333333:", store.length);
+  console.log("📊 Web Vitals Metrics:", store.length);
   for (const item of store) {
     const key = `${item.route}_${item.name}`;
     grouped[key] ??= [];
