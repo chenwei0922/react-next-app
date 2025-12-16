@@ -1,25 +1,31 @@
+"use client";
+
 import { cn } from "@/common/utils";
 import { Table, Text } from "@radix-ui/themes";
+import { useEffect, useState } from "react";
 
 async function getData() {
-  const res = await fetch(process.env.PAGE_ORIGIN+"/api/metrics", {
+  const res = await fetch(process.env.PAGE_ORIGIN + "/api/metrics", {
     cache: "no-store",
   });
   return res.json();
 }
 
-
 const DataMap = {
-  "FCP": [1800, 3000],
-  'LCP': [2500, 4000],
-  'CLS': [0.1, 0.25],
-  'FID': [100, 300],
-  'INP': [200, 500],
-  'TTFB': [800, 1200],
-}
-export default async function PerfTable() {
-  const data = await getData();
+  FCP: [1800, 3000],
+  LCP: [2500, 4000],
+  CLS: [0.1, 0.25],
+  FID: [100, 300],
+  INP: [200, 500],
+  TTFB: [800, 1200],
+};
+export default function PerfTable() {
+  const [data, setData] = useState([])
 
+  useEffect(()=> {
+    getData().then(setData)
+  }, [])
+  
   return (
     <div style={{ padding: 20 }}>
       <Text>🚀 路由级性能看板</Text>
@@ -34,19 +40,28 @@ export default async function PerfTable() {
         </Table.Header>
         <Table.Body>
           {data.map((item: any) => {
-            const score = Math.round(item.p75)
-            const p = DataMap?.[item.metric as keyof typeof DataMap] ?? [0, 0]
+            const score = Math.round(item.p75);
+            const p = DataMap?.[item.metric as keyof typeof DataMap] ?? [0, 0];
             return (
-              <Table.Row className={cn(score<p?.[0] ? '' : score>p?.[1] ? `bg-red-500`: 'bg-amber-400')} key={`${item.route}-${item.metric}`}>
-              <Table.Cell>{item.route}</Table.Cell>
-              <Table.Cell>{item.metric}</Table.Cell>
-              <Table.Cell>{score}({p?.[0]})</Table.Cell>
-              <Table.Cell>{item.count}</Table.Cell>
-            </Table.Row>
-            )
-          }
-            
-          )}
+              <Table.Row
+                className={cn(
+                  score < p?.[0]
+                    ? ""
+                    : score > p?.[1]
+                    ? `bg-red-500`
+                    : "bg-amber-400"
+                )}
+                key={`${item.route}-${item.metric}`}
+              >
+                <Table.Cell>{item.route}</Table.Cell>
+                <Table.Cell>{item.metric}</Table.Cell>
+                <Table.Cell>
+                  {score}({p?.[0]})
+                </Table.Cell>
+                <Table.Cell>{item.count}</Table.Cell>
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table.Root>
     </div>
