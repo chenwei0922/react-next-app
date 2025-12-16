@@ -2,8 +2,8 @@ import { p75 } from '@/lib/aggregate';
 import { NextRequest } from 'next/server';
 import { getVitalStore } from '@/lib/web-vitals/store';
 
-// export const runtime = "nodejs";
-export const runtime = 'edge';
+export const runtime = "nodejs";
+// export const runtime = 'edge';
 
 const THRESHOLD = {
   LCP: 2500,
