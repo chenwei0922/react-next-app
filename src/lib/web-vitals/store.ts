@@ -10,6 +10,6 @@ export function getVitalStore(env?: { web_vitals?: unknown }): VitalStore {
   }
 
   // 本地 / Node
-  console.log('Using memory store');
+  console.log('Using memory store', env);
   return memoryStore;
 }
