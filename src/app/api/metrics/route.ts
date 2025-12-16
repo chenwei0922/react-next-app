@@ -3,7 +3,7 @@ import { store } from '../web-vitals/store';
 import { NextRequest } from 'next/server';
 
 // export const runtime = "nodejs";
-// export const runtime = "edge";
+export const runtime = "edge";
 
 const THRESHOLD = {
   LCP: 2500,
