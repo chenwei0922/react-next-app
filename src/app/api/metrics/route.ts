@@ -1,9 +1,9 @@
 import { p75 } from '@/lib/aggregate';
-import { store } from '../web-vitals/store';
 import { NextRequest } from 'next/server';
+import { getVitalStore } from '@/lib/web-vitals/store';
 
 // export const runtime = "nodejs";
-export const runtime = "edge";
+export const runtime = 'edge';
 
 const THRESHOLD = {
   LCP: 2500,
@@ -11,8 +11,10 @@ const THRESHOLD = {
   CLS: 0.1,
 };
 
-export const GET = async (req: NextRequest) => {
+export const GET = async (req: NextRequest, {env}:any) => {
   const grouped: Record<string, number[]> = {};
+  const _store = getVitalStore(env);
+  const store = await _store.list()
   console.log("📊 Web Vitals Metrics:", store.length);
   for (const item of store) {
     const key = `${item.route}_${item.name}`;
