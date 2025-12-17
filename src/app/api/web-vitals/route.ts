@@ -5,7 +5,7 @@ import { getVitalStore } from "@/lib/web-vitals/store";
 // export const runtime = "nodejs";
 export const runtime = 'edge';
 
-export async function POST(req: NextRequest, ctx: {env: any}) {
+export async function POST(req: NextRequest, ctx: any) {
   const body = await req.json();
   console.log('ctx:', Object.keys(ctx))
   console.log('env:', ctx.env && Object.keys(ctx.env));
