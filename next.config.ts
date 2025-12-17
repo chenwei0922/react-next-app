@@ -131,3 +131,21 @@ const nextConfig: NextConfig = {
 // })
 export default withBundleAnalyzer({enabled: process.env.ANALYZE === 'true'})(nextConfig)
 // export default nextConfig;
+
+// import withPWA from 'next-pwa'
+// const withPWA = require("next-pwa")({
+//   dest: "public",
+//   register: true,
+//   skipWaiting: true,
+//   fallbacks: { document: "/offline.html" },
+//   disable: process.env.NODE_ENV === "development",
+//   runtimeCaching: [
+//     {
+//       urlPattern: /\.*$/,
+//       handler: "StaleWhileRevalidate",
+//       options: { cacheName: "general-cache" },
+//     },
+//   ],
+// });
+
+// export default withPWA(nextConfig);

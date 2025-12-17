@@ -10,7 +10,7 @@ export function WebVitals() {
   useReportWebVitals((metric) => {
     if(pathname.includes('perf')) return
     // console.log(metric);
-    // if(process.env.NODE_ENV === 'production'){
+    if(process.env.NODE_ENV === 'production'){
       //生产模式启用
       // sendToAnalytics(metric);
       navigator.sendBeacon(
@@ -22,7 +22,7 @@ export function WebVitals() {
           timestamp: Date.now()
         })
       );
-    // }
+    }
     // This function is called each time a web vital event is recorded.
     // `metric` will be an object that looks like this:
     // {

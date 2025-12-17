@@ -11,8 +11,9 @@ const THRESHOLD = {
   CLS: 0.1,
 };
 
-export const GET = async (req: NextRequest, env:any) => {
+export const GET = async (req: NextRequest, {params}:any) => {
   const grouped: Record<string, number[]> = {};
+  const env = await params.env;
   const _store = getVitalStore(env);
   const store = await _store.list()
   console.log("📊 Web Vitals Metrics:", store.length);

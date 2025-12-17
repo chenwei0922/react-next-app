@@ -60,3 +60,4 @@ node-functions/koa/config/*
 
 .doc
 wrangler.toml
+certificates

@@ -7,6 +7,7 @@ import FontLoader from '@/components/FontLoader'
 import "@radix-ui/themes/styles.css";
 import { Theme, ThemePanel } from "@radix-ui/themes";
 import { WebVitals } from "./web-vitals";
+import { RegisterSW } from '@/components/RegisterSW';
 
 // const inter = Inter({ subsets: ['latin'] })
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         <FontLoader />
       </head>
       <body className={''}>
+        <RegisterSW />
         <WebVitals />
         <Theme appearance={'dark'}>
         {children}
