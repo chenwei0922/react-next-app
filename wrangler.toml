@@ -11,7 +11,7 @@ analytics_engine_datasets = [
 ]
 
 [build]
-command = "npx @cloudflare/next-on-pages"
+command = "npx @cloudflare/next-on-pages@1"
 
 # 输出目录，如果你是 next-on-pages
 main = ".vercel/output/functions/.main.js"
