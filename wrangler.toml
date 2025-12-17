@@ -1,0 +1,21 @@
+name = "next-web-vitals"
+
+account_id = "81f293b31e9cdaa35c729a9f33a07585"
+compatibility_date = "2025-12-16"
+#compatibility_flags = ["nodejs_compat"]
+#workers_dev = true
+
+# Analytics Engine 绑定
+analytics_engine_datasets = [
+  { binding = "web_vitals", dataset = "web_vitals" }
+]
+
+[build]
+command = "npx @cloudflare/next-on-pages"
+
+# 输出目录，如果你是 next-on-pages
+main = ".vercel/output/functions/.main.js"
+
+# 如果只部署静态页面，也可以用 assets
+[assets]
+directory = ".vercel/output/static"
