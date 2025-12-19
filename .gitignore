@@ -61,3 +61,5 @@ node-functions/koa/config/*
 .doc
 # wrangler.toml
 certificates
+# Sentry Config File
+.env.sentry-build-plugin

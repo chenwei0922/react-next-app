@@ -32,7 +32,6 @@ const { data, isLoading, error } = useQuery({
   @base-org/account,
   @safe-global/safe-apps-provider
   @walletconnect/ethereum-provider
-
  */
 import { cookieStorage, createStorage, http } from 'wagmi'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
