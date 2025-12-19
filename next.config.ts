@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
   // output: 'export', // 关键：启用静态导出
   output: basePath ? 'export' : undefined,
   trailingSlash: false, // 确保 URL 以斜杠结尾
-  reactStrictMode: false,
+  // reactStrictMode: true,
   generateEtags: false,
   poweredByHeader: false,
   async headers() {
