@@ -8,12 +8,9 @@ import { AgentState } from './types'
 //2.定义agent节点逻辑
 //3.构建 langgraph图，定义节点间关系
 
-// deepseek: agent -> sk-92df42ef107f428e88ab0e7d3e41f0af
 // 初始化模型
 const model = new ChatGoogleGenerativeAI({
-  // deepseek: 'sk-92df42ef107f428e88ab0e7d3e41f0af',
-  // google gemini: 'AIzaSyABzmxoKljb4DQWEWW4L6azP9zoJSjIcBw'
-  apiKey: 'AIzaSyABzmxoKljb4DQWEWW4L6azP9zoJSjIcBw',
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string,
   model: 'gemini-2.5-flash',
   // modelName: "gemini-1.5-flash", //gpt-4o, deepseek-chat, gemini-1.5-flash
   temperature: 0, //控制生成文本的随机性，值越高越随机
