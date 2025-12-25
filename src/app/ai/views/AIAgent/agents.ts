@@ -9,8 +9,21 @@ import { AgentState } from './types'
 //3.构建 langgraph图，定义节点间关系
 
 // 初始化模型
+// const getModel = () => {
+//   return new ChatGoogleGenerativeAI({
+//     apiKey: process.env.GOOGLE_API_KEY as string,
+//     model: 'gemini-2.5-flash',
+//     // modelName: "gemini-1.5-flash", //gpt-4o, deepseek-chat, gemini-1.5-flash
+//     temperature: 0, //控制生成文本的随机性，值越高越随机
+//     // maxTokens: 4000, //控制生成文本的长度，值越高越长
+//     // topP: 1, //控制生成文本的多样性，值越高越多样
+//     // frequencyPenalty: 0, //控制生成文本的重复性，值越高越重复
+//     // presencePenalty: 0, //控制生成文本的连贯性，值越高越连贯
+//     // stop: ["\n\n"], //控制生成文本的结束，值越高越结束
+//   })
+// }
 const model = new ChatGoogleGenerativeAI({
-  apiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY as string,
+  apiKey: process.env.GOOGLE_API_KEY as string,
   model: 'gemini-2.5-flash',
   // modelName: "gemini-1.5-flash", //gpt-4o, deepseek-chat, gemini-1.5-flash
   temperature: 0, //控制生成文本的随机性，值越高越随机
