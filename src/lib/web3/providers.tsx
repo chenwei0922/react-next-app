@@ -1,5 +1,23 @@
 'use client'
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { getConfig } from "./config";
+import { useState } from "react";
+import { State, WagmiProvider } from "wagmi";
+
+export const Providers = ({children, initialState}:{children: React.ReactNode; initialState?: State}) => {
+  const [config] = useState(() => getConfig())
+  const [queryClient] = useState(() => new QueryClient())
+
+  return (
+    <WagmiProvider config={config} initialState={initialState}>
+      <QueryClientProvider client={queryClient}>
+        {children}
+      </QueryClientProvider>
+    </WagmiProvider>
+  )
+}
+/*
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createAppKit } from '@reown/appkit/react'
 import { networks, projectId, wagmiAdapter } from './config'
@@ -54,3 +72,4 @@ export const Providers = ({children, cookies}:{children: React.ReactNode, cookie
     </WagmiProvider>
   )
 }
+  */

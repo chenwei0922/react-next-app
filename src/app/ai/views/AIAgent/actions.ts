@@ -1,6 +1,7 @@
 "use server";
 
 import { graph } from "./graph";
+import { AgentStateStatus } from "./types";
 
 export async function generateComponent(requirement: string) {
   try {
@@ -10,7 +11,7 @@ export async function generateComponent(requirement: string) {
       code: "",
       feedback: "",
       iteration: 0,
-      status: "idle",
+      status: "idle" as AgentStateStatus,
     };
 
     // 运行图

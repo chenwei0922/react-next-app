@@ -33,6 +33,9 @@ const { data, isLoading, error } = useQuery({
   @safe-global/safe-apps-provider
   @walletconnect/ethereum-provider
  */
+
+
+/*
 import { cookieStorage, createStorage, http } from 'wagmi'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { AppKitNetwork, mainnet, sepolia } from '@reown/appkit/networks'
@@ -57,3 +60,30 @@ export const wagmiAdapter = new WagmiAdapter({
 })
 
 export const config = wagmiAdapter.wagmiConfig
+*/
+
+import { cookieStorage, createConfig, createStorage, http } from "wagmi";
+import { mainnet, sepolia } from "wagmi/chains";
+import { injected, metaMask, safe, walletConnect } from 'wagmi/connectors'
+
+export const projectId = 'c54266b8e5db06d00981a4dc59f68169'
+
+export const getConfig = () => {
+  return createConfig({
+    chains: [mainnet, sepolia],
+    connectors: [
+      injected(),
+      // walletConnect({projectId}),
+      // metaMask(),
+      safe()
+    ],
+    storage: createStorage({
+      storage: cookieStorage,
+    }),
+    ssr: true,
+    transports: {
+      [mainnet.id]: http(),
+      [sepolia.id]: http(),
+    }
+  })
+}

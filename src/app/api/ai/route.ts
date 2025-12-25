@@ -2,6 +2,7 @@
  * 创建api路由，运行langgraph图，并将事件流转换为前端可读的数据流
  */
 import { graph } from "@/app/ai/views/AIAgent/graph";
+import { AgentStateStatus } from "@/app/ai/views/AIAgent/types";
 import { NextResponse } from "next/server";
 
 export const runtime = "edge" // 运行在edge环境，以获得更低延迟
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
         code: "",
         feedback: "",
         iteration: 0,
-        status: "idle",
+        status: "idle" as AgentStateStatus,
       }
       const encoder = new TextEncoder();
       try {

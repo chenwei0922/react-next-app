@@ -8,3 +8,9 @@ export const AgentState = Annotation.Root({
   iteration: Annotation<number>, //循环次数(防止死循环)
   status: Annotation<"idle" | "reviewing" | "approved" | "rejected">, //状态
 })
+
+// 2. 提取 TypeScript 类型 (关键步骤)
+// 注意：必须使用 typeof AgentState.State
+export type AgentStateType = typeof AgentState.State;
+export type AgentStateStatus = AgentStateType["status"];
+// export type AgentStateStatus = "idle" | "reviewing" | "approved" | "rejected"
