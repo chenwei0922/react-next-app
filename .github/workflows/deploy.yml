@@ -62,13 +62,16 @@ jobs:
       # - run: npx wait-on http://localhost:3000
       # - run: npm run cypress:run
 
-      # - run: npm run test:e2e:prod
+      - name: Run E2E Tests 
+        run: pnpm run test:e2e:prod
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
       # &关键符号，表示后台运行这个命令，不会阻塞进程，可继续执行后续命令
-      - run: pnpm run start &
-      # 等待某个资源变(如URL、端口、文件)为可用状态
-      - run: npx wait-on http://localhost:3000
-      - run: pnpm run cypress:run
+      # - run: pnpm run start &
+      # # 等待某个资源变(如URL、端口、文件)为可用状态
+      # - run: npx wait-on http://localhost:3000
+      # - run: pnpm run cypress:run
 
       - name: Upload Cypress results
         uses: actions/upload-artifact@v4
