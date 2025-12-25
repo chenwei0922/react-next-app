@@ -22,6 +22,7 @@ import { AgentState } from './types'
 //     // stop: ["\n\n"], //控制生成文本的结束，值越高越结束
 //   })
 // }
+// console.log('//ffff', process.env.GOOGLE_API_KEY)
 const model = new ChatGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_API_KEY as string,
   model: 'gemini-2.5-flash',

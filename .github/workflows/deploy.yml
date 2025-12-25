@@ -45,6 +45,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
+        # 关键部分：在这里注入环境变量
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
         run: pnpm run build
         
       # - run: npm install

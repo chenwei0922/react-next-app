@@ -5,8 +5,8 @@ import { graph } from "@/app/ai/views/AIAgent/graph";
 import { AgentStateStatus } from "@/app/ai/views/AIAgent/types";
 import { NextResponse } from "next/server";
 
-// export const runtime = "edge" // 运行在edge环境，以获得更低延迟
-export const dynamic = 'force-dynamic'; // 强制使用动态导入,强制它不进行静态分析：
+export const runtime = "edge" // 运行在edge环境，以获得更低延迟
+// export const dynamic = 'force-dynamic'; // 强制使用动态导入,强制它不进行静态分析：
 
 export async function POST(request: Request) {
   const { prompt } = await request.json();
