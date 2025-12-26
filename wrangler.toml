@@ -7,19 +7,15 @@ compatibility_date = "2025-12-16"
 #workers_dev = true
 
 # Analytics Engine 绑定
-[analytics_engine_datasets]
-binding = "web_vitals"
-dataset = "web_vitals"
-
-#analytics_engine_datasets = [
-#  { binding = "web_vitals", dataset = "web_vitals" }
-#]
+analytics_engine_datasets = [
+  { binding = "web_vitals", dataset = "web_vitals" }
+]
 
 [build]
 command = "npx @cloudflare/next-on-pages@1"
 
 # 输出目录，如果你是 next-on-pages
-main = ".vercel/output/functions/.main.js"
+#main = ".vercel/output/functions/.main.js"
 
 # 如果只部署静态页面，也可以用 assets
 [assets]
