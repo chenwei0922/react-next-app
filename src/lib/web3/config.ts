@@ -68,6 +68,8 @@ import { injected, metaMask, safe, walletConnect } from 'wagmi/connectors'
 
 export const projectId = 'c54266b8e5db06d00981a4dc59f68169'
 
+export const runtime = 'edge';
+
 export const getConfig = () => {
   return createConfig({
     chains: [mainnet, sepolia],
