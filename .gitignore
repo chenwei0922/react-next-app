@@ -59,7 +59,7 @@ node-functions/koa/config/*
 !node-functions/koa/config/db.js
 
 .doc
-# wrangler.toml
+wrangler.toml
 certificates
 # Sentry Config File
 .env.sentry-build-plugin
