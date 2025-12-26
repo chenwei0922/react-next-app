@@ -1,4 +1,5 @@
 name = "next-web-vitals"
+pages_build_output_dir = ".vercel/output/static"
 
 account_id = "81f293b31e9cdaa35c729a9f33a07585"
 compatibility_date = "2025-12-16"
