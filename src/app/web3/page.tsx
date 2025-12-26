@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import { cookieToInitialState } from "wagmi";
 import { getConfig } from "@/lib/web3/config";
 
+export const runtime = 'edge';
+
 export default async function Web3() {
   const initialState = cookieToInitialState(getConfig(), (await headers()).get('cookie'))
 
