@@ -1,21 +1,69 @@
-
-
-.eraser-text{
+.eraser-text {
   --p: 0%;
-  background: linear-gradient(to right, transparent var(--p), #000 calc(var(--p) + 30px));
+  background: linear-gradient(
+    to right,
+    transparent var(--p),
+    #000 calc(var(--p) + 30px)
+  );
   /* 纯css效果 */
   color: transparent;
   animation: erase 5s linear forwards;
 }
 
 @property --p {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 0%;
 }
 
 @keyframes erase {
-  to{
+  to {
     --p: 100%;
+  }
+}
+
+/* 描边文案 */
+.eraser-text-stroke {
+  --t: 70px;
+  background-image: linear-gradient(
+    to right,
+    white var(--t),
+    transparent var(--t)
+  );
+  background-clip: text;
+  /* 纯css效果 */
+  font-size: 55px;
+  color: transparent;
+  -webkit-text-stroke: 2px red;
+}
+
+/* 逐帧动画 */
+.girl-step {
+  width: 300px;  /* 单帧宽度 */
+  height: 163.75px; /* 单帧高度 */
+  background-image: url("/images/step.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  animation: anim-x 1s steps(4) infinite, anim-y 4s steps(4) infinite;
+}
+
+@keyframes anim-x {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    /* 向左移动整张图的宽度 [修改这里] */
+    /* 负值表示背景图向左移，露出右边的内容 */
+    background-position-x: -1200px; /* 整图宽度 */
+  }
+}
+@keyframes anim-y {
+  from {
+    background-position-y: 0;
+  }
+  to {
+    /* 向上移动整张图的高度 [修改这里] */
+    /* 负值表示背景图向上移，露出下面的内容 */
+    background-position-y: -655px; /*整图高度 */
   }
 }
