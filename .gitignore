@@ -63,3 +63,5 @@ wrangler.toml
 certificates
 # Sentry Config File
 .env.sentry-build-plugin
+**/*/tailwind.css
+tailwind.config.js.backup
